@@ -1,66 +1,62 @@
 "use client"
+
 import { useEffect, useRef } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import dynamic from "next/dynamic"
+
+// Dinamik importlar (SSR kapalı çünkü Three.js tarayıcıya özel çalışır)
+const Model = dynamic(() => import("@/components/ThreeModel"), { ssr: false })
+const VideoBackground = dynamic(() => import("@/components/VideoBackground"), { ssr: false })
 
 export default function ParallaxBackground() {
-  const ref1 = useRef<HTMLDivElement>(null)
-  const ref2 = useRef<HTMLDivElement>(null)
-  const ref3 = useRef<HTMLDivElement>(null)
+  const { scrollY } = useScroll()
+
+  // Scroll hareketine göre katmanların dikey pozisyonlarını belirle
+  const y1 = useTransform(scrollY, [0, 600], ["0px", "-100px"])
+  const y2 = useTransform(scrollY, [0, 600], ["0px", "-200px"])
+  const y3 = useTransform(scrollY, [0, 600], ["0px", "-300px"])
+
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const y = window.scrollY
-      if (ref1.current) ref1.current.style.setProperty("--scrollY", `${y * 0.3}px`)
-      if (ref2.current) ref2.current.style.setProperty("--scrollY", `${y * 0.5}px`)
-      if (ref3.current) ref3.current.style.setProperty("--scrollY", `${y * 0.7}px`)
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window
+      const x = (e.clientX / innerWidth - 0.5) * 2
+      const y = (e.clientY / innerHeight - 0.5) * 2
+
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translate(${x * 10}px, ${y * 10}px)`
+      }
+
+      // Derinliğe göre diğer katmanları kaydır
+      document.querySelectorAll<HTMLElement>(".floating-model").forEach((el, i) => {
+        const depth = (i + 1) * 10
+        el.style.transform = `translate(${x * depth}px, ${y * depth}px)`
+      })
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 w-full h-full overflow-hidden" aria-hidden>
-      <div ref={ref1} className="parallax-blob blob1" />
-      <div ref={ref2} className="parallax-blob blob2" />
-      <div ref={ref3} className="parallax-blob blob3" />
+    <div
+      ref={containerRef}
+      className="pointer-events-none fixed inset-0 -z+10 w-full h-full overflow-hidden"
+      aria-hidden
+    >
+      <VideoBackground />
 
-      <style jsx global>{`
-        .parallax-blob {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.55;
-          mix-blend-mode: lighten;
-          z-index: -1;
-          will-change: transform;
-          transform: translateY(var(--scrollY, 0));
-          transition: transform 0.1s linear;
-        }
-
-        .blob1 {
-          width: 600px;
-          height: 600px;
-          left: -180px;
-          top: -120px;
-          background: radial-gradient(circle at 40% 60%, #00f0ff 0%, #007cf0 100%);
-        }
-
-        .blob2 {
-          width: 500px;
-          height: 500px;
-          right: -150px;
-          top: 200px;
-          background: radial-gradient(circle at 60% 40%, #8a2be2 0%, #6d28d9 100%);
-        }
-
-        .blob3 {
-          width: 400px;
-          height: 400px;
-          left: 40vw;
-          bottom: -120px;
-          background: radial-gradient(circle at 60% 40%, #00ff80 0%, #00c776 100%);
-        }
-      `}</style>
+      {/* Parallax 3D Model Katmanları */}
+      <motion.div style={{ y: y1 }} className="floating-model absolute top-20 left-20 w-[300px] h-[300px]">
+        <Model />
+      </motion.div>
+      <motion.div style={{ y: y2 }} className="floating-model absolute bottom-28 right-28 w-[350px] h-[350px]">
+        <Model />
+      </motion.div>
+      <motion.div style={{ y: y3 }} className="floating-model absolute top-1/2 left-1/3 w-[250px] h-[250px]">
+        <Model />
+      </motion.div>
     </div>
   )
 }

@@ -54,7 +54,7 @@ export default function ContactPage() {
                       href="mailto:contact@hackstack.com.tr"
                       className="text-muted-foreground hover:text-neon-blue transition-colors"
                     >
-                      contact@hackstack.com.tr
+                      iletisim@hackstack.com.tr
                     </Link>
                   </li>
                   <li className="flex items-center gap-4">
@@ -63,19 +63,13 @@ export default function ContactPage() {
                       href="tel:+905551234567"
                       className="text-muted-foreground hover:text-neon-purple transition-colors"
                     >
-                      +90 555 123 4567
-                    </Link>
-                  </li>
-                  <li className="flex items-center gap-4">
-                    <MessageSquare className="w-8 h-8 text-neon-green" />
-                    <Link href="#" className="text-muted-foreground hover:text-neon-green transition-colors">
-                      Discord: hackstack_dev
+                      +90 535 226 02 45
                     </Link>
                   </li>
                   <li className="flex items-center gap-4">
                     <MapPin className="w-8 h-8 text-neon-blue" />
                     <span className="text-muted-foreground">
-                      Cyber Plaza, Teknoloji Bulvarı No: 42, Ankara, Türkiye
+                      Yenibosna, İstanbul, Türkiye
                     </span>
                   </li>
                 </ul>

@@ -3,7 +3,8 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import ParallaxBackground from "@/components/ParallaxBackground"
+import Hyperspeed from "@/components/Hyperspeed/Hyperspeed"
+import ClickSpark from "@/components/ClickSpark"
 import {
   ArrowRight,
   Code,
@@ -20,7 +21,7 @@ import {
   Brain,
   Gem,
   Cloud,
-} from "lucide-react" // Yeni ikonlar eklendi
+} from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -120,16 +121,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <ParallaxBackground />
+      <Hyperspeed/>
+      <ClickSpark>
       <Header />
       <main className="pt-20">
         {/* Hero Bölümü */}
-        <section className="relative h-[80vh] flex items-center justify-center text-center overflow-hidden">
-          {/* İnce ızgara hareketli arka plan */}
-          <div className="absolute inset-0 pointer-events-none opacity-10 animate-grid-fade">
-            <div className="absolute inset-0 bg-[size:40px_40px] bg-[radial-gradient(circle,rgba(255,255,255,0.05)_1px,transparent_1px)]"></div>
-          </div>
-
+        <section className="relative h-[95vh] flex items-center justify-center text-center overflow-hidden">
           <div className="relative z-10 px-4">
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
@@ -145,8 +142,7 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="mt-4 text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto"
             >
-              Geleceğin dijital çözümlerini bugün inşa ediyoruz. Yenilikçi yazılım geliştirme ve siber güvenlik
-              hizmetleriyle işinizi dönüştürün.
+              Geleceğin dijital çözümlerini bugün inşa ediyoruz. Yenilikçi yazılım geliştirme hizmetleriyle işinizi büyütün.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -162,7 +158,7 @@ export default function HomePage() {
             </motion.div>
           </div>
         </section>
-
+        
         {/* Yaptığımız Projeler Bölümü (Yeni Konum) */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
@@ -209,15 +205,6 @@ export default function HomePage() {
                       </div>
                     )}
                   </div>
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 backdrop-blur-[3px]">
-                    <Button
-                      variant="ghost"
-                      className="text-white hover:text-neon-green border border-neon-green/50 hover:border-neon-green transition-colors"
-                    >
-                      Detayları Gör <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </div>
                 </motion.div>
               ))}
             </div>
@@ -239,7 +226,7 @@ export default function HomePage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredServices.map((service, index) => {
-                const Icon = service.icon; // ✅ JS kodu burada tanımlanabilir
+                const Icon = service.icon;
 
                 return (
                   <motion.div
@@ -407,6 +394,7 @@ export default function HomePage() {
         </section>
       </main>
       <Footer />
+      </ClickSpark>
     </div>
   )
 }

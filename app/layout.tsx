@@ -11,7 +11,10 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "Hackstack - Hack Smarter. Build Faster.",
-  description: "Cutting-edge software development and cybersecurity solutions.",
+  description: "Cutting-edge software development solutions.",
+  icons: {
+    icon: "/logo.ico",
+  },
     generator: 'v0.dev'
 }
 

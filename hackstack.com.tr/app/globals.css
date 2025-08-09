@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%; /* Koyu arka plan */
+    --foreground: 210 40% 98%; /* Açık ön plan */
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%; /* Mavi */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.4% 17.3%; /* Daha koyu mavi/gri */
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.4% 17.3%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.4% 17.3%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.4% 17.3%;
+    --input: 217.2 32.4% 17.3%;
+    --ring: 217.2 91.2% 59.8%;
+    --radius: 0.5rem;
+  }
+}
+
+#lights {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
